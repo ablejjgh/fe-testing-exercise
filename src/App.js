@@ -27,9 +27,10 @@ function Label({ htmlFor, ...rest }) {
   return <label className="pb-2 text-lg" htmlFor={htmlFor} {...rest}></label>;
 }
 
-function LoginForm({ onSubmit, isLoading }) {
+function LoginForm({ onSubmit, isLoading = true }) {
   const [email, handleEmailChange] = useField("");
   const [password, handlePasswordChange] = useField("");
+  const disabled = email && password !== "" ? false : true;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -61,7 +62,7 @@ function LoginForm({ onSubmit, isLoading }) {
         />
       </div>
       <button
-        disabled={isLoading}
+        disabled={disabled}
         className={`w-full text-white py-3 font-semibold ${buttonColor}`}
       >
         {isLoading ? "Loading..." : "Submit"}
