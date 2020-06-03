@@ -22,14 +22,7 @@ test("logs in user", async () => {
 
 test("logs out user", async () => {
   render(<App />);
-  const emailTextBox = screen.getByRole("textbox", { name: /email/i });
-  const pwdTextBox = screen.getByLabelText(/password/i);
-  const submitButton = screen.getByRole("button", { name: /submit/i });
-
-  userEvent.type(emailTextBox, "jj@able.co");
-  userEvent.type(pwdTextBox, "123456");
-  userEvent.click(submitButton);
-
+  login();
   const msg = await screen.findByText(/you are logged in/i);
   const logOutButton = screen.getByText(/log out/i);
 
@@ -40,3 +33,13 @@ test("logs out user", async () => {
   expect(msg).not.toBeInTheDocument();
   expect(loginTitle).toBeInTheDocument();
 });
+
+function login() {
+  const emailTextBox = screen.getByRole("textbox", { name: /email/i });
+  const pwdTextBox = screen.getByLabelText(/password/i);
+  const submitButton = screen.getByRole("button", { name: /submit/i });
+
+  userEvent.type(emailTextBox, "jj@able.co");
+  userEvent.type(pwdTextBox, "123456");
+  userEvent.click(submitButton);
+}
